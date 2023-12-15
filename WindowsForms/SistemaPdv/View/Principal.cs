@@ -113,5 +113,12 @@ namespace SistemaPdv
 
             
         }
+
+        private void BtnUpdate_Click(object sender, EventArgs e)
+        {
+            PrincipalDAO dao = new PrincipalDAO();
+
+            DgvPedidosRealizados.DataSource = dao.ListarPedidos();
+        }
     }
 }

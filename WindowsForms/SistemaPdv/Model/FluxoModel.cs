@@ -9,8 +9,8 @@ namespace SistemaPdv.Model
     internal class FluxoModel
     {
         public int Id { get; set; }
-        public float SaldoInicial { get; set; }
-        public float SaldoFinal { get; set; }
+        public decimal SaldoInicial { get; set; }
+        public decimal SaldoFinal { get; set; }
         public DateTime DataOpen { get; set; }
         public DateTime DataClose { get; set; }
 

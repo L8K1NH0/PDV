@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CRUD_Produto));
             this.BtnMenu = new System.Windows.Forms.Button();
             this.BtnExcluir = new System.Windows.Forms.Button();
             this.BtnAtualizar = new System.Windows.Forms.Button();
@@ -58,11 +60,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.TxtIdCategoria = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.TabProduto.SuspendLayout();
             this.TabDadoProduto.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DgvProduto)).BeginInit();
             this.TabDadoCategoria.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DgvCategoria)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             this.SuspendLayout();
             // 
             // BtnMenu
@@ -148,6 +153,7 @@
             // 
             // TabDadoProduto
             // 
+            this.TabDadoProduto.Controls.Add(this.pictureBox5);
             this.TabDadoProduto.Controls.Add(this.LblIdCategoria);
             this.TabDadoProduto.Controls.Add(this.TxtCategoriaProduto);
             this.TabDadoProduto.Controls.Add(this.DgvProduto);
@@ -386,6 +392,23 @@
             this.label3.TabIndex = 16;
             this.label3.Text = "ID :";
             // 
+            // toolTip1
+            // 
+            this.toolTip1.IsBalloon = true;
+            this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.toolTip1.ToolTipTitle = "Informação";
+            // 
+            // pictureBox5
+            // 
+            this.pictureBox5.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox5.Image")));
+            this.pictureBox5.Location = new System.Drawing.Point(107, 217);
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(20, 20);
+            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox5.TabIndex = 80;
+            this.pictureBox5.TabStop = false;
+            this.toolTip1.SetToolTip(this.pictureBox5, "Com a caixa de texto selecionada, aperte a tecla F2 e selecione a categoria");
+            // 
             // CRUD_Produto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -409,6 +432,7 @@
             this.TabDadoCategoria.ResumeLayout(false);
             this.TabDadoCategoria.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DgvCategoria)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -445,5 +469,7 @@
         private System.Windows.Forms.Label LblIdCategoria;
         private System.Windows.Forms.TextBox TxtCategoriaProduto;
         private System.Windows.Forms.Label LblCategoria;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.PictureBox pictureBox5;
     }
 }

@@ -47,14 +47,24 @@ namespace SistemaPdv.View
                 TxtSaldoFinal.Enabled = true;
             }
 
-            decimal pix = decimal.Parse(DgvValores.Rows[0].Cells[0].Value.ToString());
-            decimal din = decimal.Parse(DgvValores.Rows[0].Cells[1].Value.ToString());
-            decimal deb = decimal.Parse(DgvValores.Rows[0].Cells[2].Value.ToString());
-            decimal cred = decimal.Parse(DgvValores.Rows[0].Cells[3].Value.ToString());
 
-            decimal total = pix + din + deb + cred;
+            try
+            {
+                decimal pix = decimal.Parse(DgvValores.Rows[0].Cells[0].Value.ToString());
+                decimal din = decimal.Parse(DgvValores.Rows[0].Cells[1].Value.ToString());
+                decimal deb = decimal.Parse(DgvValores.Rows[0].Cells[2].Value.ToString());
+                decimal cred = decimal.Parse(DgvValores.Rows[0].Cells[3].Value.ToString());
 
-            TxtValorFinalAuto.Text = total.ToString("F");
+                decimal total = pix + din + deb + cred;
+
+                TxtValorFinalAuto.Text = total.ToString("F");
+            }
+            catch (Exception)
+            {
+
+                TxtValorFinalAuto.Text = "0";
+            }
+            
 
         }
 
@@ -75,8 +85,8 @@ namespace SistemaPdv.View
             }
             else
             {
-                obj.SaldoInicial = float.Parse(TxtSaldoInicial.Text);
-                obj.DataOpen = DtpAbrir.Value;
+                obj.SaldoInicial = decimal.Parse(TxtSaldoInicial.Text);
+                obj.DataOpen = DateTime.Parse(DtpAbrir.Value.ToString("dd/MM/yyyy HH:mm"));
 
                 dao.AbrirCaixa(obj);
             }            
@@ -89,15 +99,18 @@ namespace SistemaPdv.View
 
             if (dao.VerificarCaixaClose())
             {
-                obj.SaldoFinal = float.Parse(TxtSaldoFinal.Text);
-                obj.DataClose = DtpFechar.Value;
-                obj.Id = dao.UltimoIdFluxo();
-
-                dao.FecharCaixa(obj);
+                MessageBox.Show("O caixa ja foi fechado.");
             }
             else
             {
-                MessageBox.Show("O caixa ja foi fechado.");
+                decimal saldoF = decimal.Parse(TxtSaldoFinal.Text.ToString().Replace(',','.'));
+                
+
+                obj.SaldoFinal = decimal.Parse(TxtSaldoFinal.Text);
+                obj.DataClose = DateTime.Parse(DtpFechar.Value.ToString("dd/MM/yyyy HH:mm"));
+                obj.Id = dao.UltimoIdFluxo();
+
+                dao.FecharCaixa(obj);
             }            
         }
 
@@ -113,9 +126,9 @@ namespace SistemaPdv.View
 
         private void BtnMenu_Click(object sender, EventArgs e)
         {
-            Principal principal = new Principal();
+            //Principal principal = new Principal();
 
-            principal.Show();
+            //principal.Show();
             this.Hide();
         }
     }

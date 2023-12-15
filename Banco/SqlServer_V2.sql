@@ -1,8 +1,6 @@
-drop database dbPdv
-
 create database dbPdv
-use dbPdv
 
+use dbPdv
 
 create table Cliente -- 1
 (
@@ -95,7 +93,6 @@ create table ItemPedido -- 8
 	IdPedido int ,
 	quantidade decimal(7,2),
 	SubTotal decimal(7,2),
-    DataVenda date,
     
     FOREIGN KEY (IdProduto) REFERENCES Produto(Id)
 )
@@ -105,8 +102,8 @@ create table Fluxo -- 9
 	Id int auto_increment primary key,
 	SaldoInicial decimal(7,2),
 	SaldoFinal decimal(7,2),
-    DataOpen date,
-    DataClose date
+    DataOpen datetime,
+    DataClose datetime
 )
 
 

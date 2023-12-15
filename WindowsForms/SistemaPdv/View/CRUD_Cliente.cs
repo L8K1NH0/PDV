@@ -128,63 +128,68 @@ namespace SistemaPdv.View
         {
             //Estanciar objetos do cliente
             ClienteModel obj = new ClienteModel();
-            
-            string cel = TxtContato.Text;
-            //Retirando caracteres especias para verificar numero de telefone
-            cel = cel.Replace("(", "").Replace(")", "").Replace("-","").Replace(" ","");
 
-            if(TxtNome.Text == string.Empty || cel == string.Empty || TxtLogradouro.Text == string.Empty || TxtBairro.Text == string.Empty || TxtNumeroCasa.TextLength == 0)
+            if (DialogResult.Yes == MessageBox.Show("TEM CERTEZA EM ALTERAR O CLIENTE?", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
             {
-                Erro customErro = new Erro("Todas as caixas devem ser preenchidas.");
-                customErro.ShowDialog();
+                string cel = TxtContato.Text;
+                //Retirando caracteres especias para verificar numero de telefone
+                cel = cel.Replace("(", "").Replace(")", "").Replace("-", "").Replace(" ", "");
 
-                AlertON();
-            }
-            else
-            {
-                if (cel.Length != 11)
+                if (TxtNome.Text == string.Empty || cel == string.Empty || TxtLogradouro.Text == string.Empty || TxtBairro.Text == string.Empty || TxtNumeroCasa.TextLength == 0)
                 {
-                    MessageBox.Show("Número de contato incompleto.");
+                    Erro customErro = new Erro("Todas as caixas devem ser preenchidas.");
+                    customErro.ShowDialog();
+
+                    AlertON();
                 }
                 else
                 {
-                    try
+                    if (cel.Length != 11)
                     {
-                        //Passando obj
-                        obj.Id = int.Parse(TxtId.Text);
-                        obj.Nome = TxtNome.Text;
-                        obj.Logradouro = TxtLogradouro.Text;
-                        obj.Bairro = TxtBairro.Text;
-                        obj.Cidade = TxtCidade.Text;
-                        obj.NumeroCasa = int.Parse(TxtNumeroCasa.Text);
-                        obj.Email = TxtEmail.Text;
-                        obj.Contato = TxtContato.Text;
-                        obj.CPF = TxtCPF.Text;
-
-                        dao.AlterarCliente(obj);
-
-                        //Atualizar Dgv
-                        DgvConsulta.DataSource = dao.ListarCliente();
-
-
-
+                        MessageBox.Show("Número de contato incompleto.");
                     }
-                    catch (Exception)
+                    else
                     {
-                        Erro customErro = new Erro("Verifique os campos obrigatorios.");
-                        customErro.ShowDialog();
+                        try
+                        {
+                            //Passando obj
+                            obj.Id = int.Parse(TxtId.Text);
+                            obj.Nome = TxtNome.Text;
+                            obj.Logradouro = TxtLogradouro.Text;
+                            obj.Bairro = TxtBairro.Text;
+                            obj.Cidade = TxtCidade.Text;
+                            obj.NumeroCasa = int.Parse(TxtNumeroCasa.Text);
+                            obj.Email = TxtEmail.Text;
+                            obj.Contato = TxtContato.Text;
+                            obj.CPF = TxtCPF.Text;
 
-                        AlertID.Visible = true;
-                        AlertNome.Visible = true;
-                        AlertContato.Visible = true;
-                        AlertEndereco.Visible = true;
-                        AlertBairro.Visible = true;
-                        AlertNumCasa.Visible = true;
+                            dao.AlterarCliente(obj);
+
+                            //Atualizar Dgv
+                            DgvConsulta.DataSource = dao.ListarCliente();
+
+
+
+                        }
+                        catch (Exception)
+                        {
+                            Erro customErro = new Erro("Verifique os campos obrigatorios.");
+                            customErro.ShowDialog();
+
+                            AlertID.Visible = true;
+                            AlertNome.Visible = true;
+                            AlertContato.Visible = true;
+                            AlertEndereco.Visible = true;
+                            AlertBairro.Visible = true;
+                            AlertNumCasa.Visible = true;
+                        }
                     }
                 }
+                //Atualizar Dgv
+                DgvConsulta.DataSource = dao.ListarCliente();
             }
-            //Atualizar Dgv
-            DgvConsulta.DataSource = dao.ListarCliente();
+
+            
         }
 
         private void BtnExcluir_Click(object sender, EventArgs e)
@@ -301,8 +306,8 @@ namespace SistemaPdv.View
 
         private void BtnMenu_Click(object sender, EventArgs e)
         {
-            Principal principal = new Principal();
-            principal.Show();
+            //Principal principal = new Principal();
+            //principal.Show();
             this.Hide();
         }
 

@@ -62,7 +62,7 @@ namespace SistemaPdv.DAO
                 DataTable tabelaPedido = new DataTable();
 
                 //COMANDO SQL
-                string strSql = $"select  IdProduto, Pr.NomeProduto, SUM(quantidade) as quant, Pr.ValorUnitario , SUM((quantidade * Pr.ValorUnitario)) as ValorTotal from itempedido \r\ninner join produto Pr ON Pr.Id = IdProduto\r\ninner join pedido Pe ON Pe.Id = IdPedido\r\nwhere IdPedido = {Id}\r\ngroup by  IdProduto, Pr.NomeProduto";
+                string strSql = $"select  IdProduto, Pr.NomeProduto, SUM(quantidade) as quant, Pr.ValorUnitario , ROUND(SUM((quantidade * Pr.ValorUnitario)),2) as ValorTotal from itempedido \r\ninner join produto Pr ON Pr.Id = IdProduto\r\ninner join pedido Pe ON Pe.Id = IdPedido\r\nwhere IdPedido = {Id}\r\ngroup by  IdProduto, Pr.NomeProduto";
 
                 //ORGANIZAR CMD
                 MySqlCommand exCmd = new MySqlCommand(strSql, conexao);

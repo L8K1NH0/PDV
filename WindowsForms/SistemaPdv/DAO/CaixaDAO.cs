@@ -87,7 +87,7 @@ namespace SistemaPdv.DAO
                 DataTable tabelaProduto = new DataTable();
 
                 //COMANDO SQL
-                string strSql = $"SELECT * FROM produto WHERE NomeProduto LIKE '%{nome}%'"; 
+                string strSql = $"SELECT NomeProduto, ValorUnitario, Id FROM produto WHERE NomeProduto LIKE '%{nome}%'"; 
 
                 //ORGANIZAR CMD 
                 MySqlCommand exCmd = new MySqlCommand(strSql, conexao);

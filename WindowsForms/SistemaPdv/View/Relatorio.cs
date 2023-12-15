@@ -32,9 +32,9 @@ namespace SistemaPdv.View
 
         private void BtnMenu_Click(object sender, EventArgs e)
         {
-            Principal principal = new Principal();
+            //Principal principal = new Principal();
 
-            principal.Show();
+            //principal.Show();
             this.Hide();
         }
 

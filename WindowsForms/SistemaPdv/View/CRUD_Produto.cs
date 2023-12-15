@@ -116,62 +116,65 @@ namespace SistemaPdv.View
 
         private void BtnAtualizar_Click(object sender, EventArgs e)
         {
-            if (VerificarTab() == "TabDadoProduto")
+            if (DialogResult.Yes == MessageBox.Show("TEM CERTEZA EM ALTERAR O ITEM?", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
             {
-                //Estanciar objetos do Produto
-                ProdutoModel obj = new ProdutoModel();
-
-                try
+                if (VerificarTab() == "TabDadoProduto")
                 {
-                    //if(TxtValorUnitarioProduto.Text == "")
-                    //{
-                    //    throw new ArithmeticException("Access denied - You must be at least 18 years old.");
-                    //}
+                    //Estanciar objetos do Produto
+                    ProdutoModel obj = new ProdutoModel();
 
-                    obj.Id = int.Parse(TxtIdProduto.Text);
-                    obj.Nome = TxtNomeProduto.Text;
-                    obj.ValorUnitario = decimal.Parse(TxtValorUnitarioProduto.Text);
-                    obj.IdCategoria = int.Parse(TxtCategoriaProduto.Text);
+                    try
+                    {
+                        //if(TxtValorUnitarioProduto.Text == "")
+                        //{
+                        //    throw new ArithmeticException("Access denied - You must be at least 18 years old.");
+                        //}
 
-                    daoProd.AlterarProduto(obj);
-                    
+                        obj.Id = int.Parse(TxtIdProduto.Text);
+                        obj.Nome = TxtNomeProduto.Text;
+                        obj.ValorUnitario = decimal.Parse(TxtValorUnitarioProduto.Text);
+                        obj.IdCategoria = int.Parse(TxtCategoriaProduto.Text);
+
+                        daoProd.AlterarProduto(obj);
+
+                    }
+                    catch (Exception)
+                    {
+                        Erro customErro = new Erro("Verifique os campos obrigatorios.");
+                        customErro.ShowDialog();
+                    }
+
+
+
                 }
-                catch (Exception)
+                else if (VerificarTab() == "TabDadoCategoria")
                 {
-                    Erro customErro = new Erro("Verifique os campos obrigatorios.");
-                    customErro.ShowDialog();
-                }
-                
+                    //Estanciar objetos do Categoria
+                    CategoriaModel obj = new CategoriaModel();
 
-                
+                    try
+                    {
+                        obj.Id = int.Parse(TxtIdCategoria.Text);
+                        obj.Nome = TxtNomeCategoria.Text;
+                        obj.Descricao = TxtDescricaoCategoria.Text;
+
+                        daoCat.AlterarCategoria(obj);
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("Verifique os campos OBRIGATÓRIOS.");
+                    }
+
+
+                }
+                else
+                {
+                    MessageBox.Show("Ñ");
+                }
+
+                Clear.ClearControl(this);
+                LoadDgv();
             }
-            else if (VerificarTab() == "TabDadoCategoria")
-            {
-                //Estanciar objetos do Categoria
-                CategoriaModel obj = new CategoriaModel();
-
-                try
-                {
-                    obj.Id = int.Parse(TxtIdCategoria.Text);
-                    obj.Nome = TxtNomeCategoria.Text;
-                    obj.Descricao = TxtDescricaoCategoria.Text;
-
-                    daoCat.AlterarCategoria(obj);
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("Verifique os campos OBRIGATÓRIOS.");
-                }
-                
-
-            }
-            else
-            {
-                MessageBox.Show("Ñ");
-            }
-
-            Clear.ClearControl(this);
-            LoadDgv();
 
         }
 
@@ -297,8 +300,8 @@ namespace SistemaPdv.View
 
         private void BtnMenu_Click(object sender, EventArgs e)
         {
-            Principal principal = new Principal();
-            principal.Show();
+            //Principal principal = new Principal();
+            //principal.Show();
             this.Hide();
         }
 

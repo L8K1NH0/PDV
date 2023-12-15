@@ -165,6 +165,13 @@ namespace SistemaPdv.View
                     objPagamento.Debito = decimal.Parse(TxtDebito.Text);
                     objPagamento.Credito = decimal.Parse(TxtCredito.Text);
 
+                    decimal Pix = decimal.Parse(TxtPix.Text);
+                    decimal Dinheiro = decimal.Parse(TxtDinheiro.Text);
+                    decimal Debito = decimal.Parse(TxtDebito.Text);
+                    decimal Credito = decimal.Parse(TxtCredito.Text);
+
+                    decimal total = Pix + Dinheiro + Debito + Credito;
+
                     objPedido.NomeCliente = TxtNomeCliente.Text;
 
                     if (RbtnRetirada.Checked)
@@ -182,22 +189,31 @@ namespace SistemaPdv.View
                     objPedido.TotalVenda = decimal.Parse(TxtValorTotal.Text);
                     objPedido.DataVenda = DateTime.Now.ToString("yyyy-MM-dd");
 
-                    daoPagamento.FormaPagamento(objPagamento);
-                    daoCaixa.FinalizarVenda(objPedido);
+                    if (total == decimal.Parse(TxtValorTotal.Text)) 
+                    {
+                        daoPagamento.FormaPagamento(objPagamento);
+                        daoCaixa.FinalizarVenda(objPedido);
 
-                    MessageBox.Show("Venda Finalizada com sucesso!");
+                        MessageBox.Show("Venda Finalizada com sucesso!");
 
-                    //Limpar toda a pagina
-                    Clear.ClearControl(this);
+                        //Limpar toda a pagina
+                        Clear.ClearControl(this);
 
-                    //Limpar o Dt
-                    ProdutosSelecionadosDt.Clear(); 
+                        //Limpar o Dt
+                        ProdutosSelecionadosDt.Clear();
 
-                    AddNum();
+                        AddNum();
 
 
-                    CaixaDAO dao = new CaixaDAO();
-                    TxtIdPedido.Text = dao.UltimoIdPedido().ToString();
+                        CaixaDAO dao = new CaixaDAO();
+                        TxtIdPedido.Text = dao.UltimoIdPedido().ToString();
+                    }
+                    else
+                    {
+                        MessageBox.Show("O valor total não bate com o valor de pagamento.");
+                    }
+                    
+                    
                 }
                 else
                 {
@@ -393,11 +409,11 @@ namespace SistemaPdv.View
 
         private void BtnMenu_Click(object sender, EventArgs e)
         {
-            Principal principal = new Principal();
+            //Principal principal = new Principal();
 
             if(0 == int.Parse(DgvProdutosSelecionados.RowCount.ToString()))
             {                
-                principal.Show();
+                //principal.Show();
                 this.Hide();
             }
             else

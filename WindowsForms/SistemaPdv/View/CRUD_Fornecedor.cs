@@ -123,64 +123,67 @@ namespace SistemaPdv.View
             //Estanciar objetos do cliente
             FornecedorModel obj = new FornecedorModel();
 
-            string cel = TxtContato.Text;
-            //Retirando caracteres especias para verificar numero de telefone
-            cel = cel.Replace("(", "").Replace(")", "").Replace("-", "").Replace(" ", "");
-
-            if (TxtNome.Text == string.Empty || cel == string.Empty || TxtLogradouro.Text == string.Empty || TxtBairro.Text == string.Empty || TxtNumeroEstabelecimento.TextLength == 0)
+            if (DialogResult.Yes == MessageBox.Show("TEM CERTEZA EM ALTERAR O FORNECEDOR?", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
             {
-                Erro customErro = new Erro("Verifique os campos obrigatorios.");
-                customErro.ShowDialog();
+                string cel = TxtContato.Text;
+                //Retirando caracteres especias para verificar numero de telefone
+                cel = cel.Replace("(", "").Replace(")", "").Replace("-", "").Replace(" ", "");
 
-                AlertNome.Visible = true;
-                AlertContato.Visible = true;
-                AlertEndereco.Visible = true;
-                AlertBairro.Visible = true;
-                AlertNumEstabelecimento.Visible = true;
-            }
-            else
-            {
-                if(cel.Length != 11)
+                if (TxtNome.Text == string.Empty || cel == string.Empty || TxtLogradouro.Text == string.Empty || TxtBairro.Text == string.Empty || TxtNumeroEstabelecimento.TextLength == 0)
                 {
-                    MessageBox.Show("Número de contato incompleto.");
+                    Erro customErro = new Erro("Verifique os campos obrigatorios.");
+                    customErro.ShowDialog();
+
+                    AlertNome.Visible = true;
+                    AlertContato.Visible = true;
+                    AlertEndereco.Visible = true;
+                    AlertBairro.Visible = true;
+                    AlertNumEstabelecimento.Visible = true;
                 }
                 else
                 {
-                    try
+                    if (cel.Length != 11)
                     {
-                        //Passando obj
-                        obj.Id = int.Parse(TxtId.Text);
-                        obj.Nome = TxtNome.Text;
-                        obj.Logradouro = TxtLogradouro.Text;
-                        obj.Bairro = TxtBairro.Text;
-                        obj.Cidade = TxtCidade.Text;
-                        obj.Numero = int.Parse(TxtNumeroEstabelecimento.Text);
-                        obj.Email = TxtEmail.Text;
-                        obj.Contato = TxtContato.Text;
-                        obj.CNPJ = TxtCNPJ.Text;
-
-                        dao.AlterarFornecedor(obj);
-
-                        //Atualizar Dgv
-                        DgvConsulta.DataSource = dao.ListarFornecedor();
-
+                        MessageBox.Show("Número de contato incompleto.");
                     }
-                    catch (Exception)
+                    else
                     {
-                        Erro customErro = new Erro("Verifique os campos obrigatorios.");
-                        customErro.ShowDialog();
+                        try
+                        {
+                            //Passando obj
+                            obj.Id = int.Parse(TxtId.Text);
+                            obj.Nome = TxtNome.Text;
+                            obj.Logradouro = TxtLogradouro.Text;
+                            obj.Bairro = TxtBairro.Text;
+                            obj.Cidade = TxtCidade.Text;
+                            obj.Numero = int.Parse(TxtNumeroEstabelecimento.Text);
+                            obj.Email = TxtEmail.Text;
+                            obj.Contato = TxtContato.Text;
+                            obj.CNPJ = TxtCNPJ.Text;
 
-                        AlertID.Visible = true;
-                        AlertNome.Visible = true;
-                        AlertContato.Visible = true;
-                        AlertEndereco.Visible = true;
-                        AlertBairro.Visible = true;
-                        AlertNumEstabelecimento.Visible = true;
+                            dao.AlterarFornecedor(obj);
+
+                            //Atualizar Dgv
+                            DgvConsulta.DataSource = dao.ListarFornecedor();
+
+                        }
+                        catch (Exception)
+                        {
+                            Erro customErro = new Erro("Verifique os campos obrigatorios.");
+                            customErro.ShowDialog();
+
+                            AlertID.Visible = true;
+                            AlertNome.Visible = true;
+                            AlertContato.Visible = true;
+                            AlertEndereco.Visible = true;
+                            AlertBairro.Visible = true;
+                            AlertNumEstabelecimento.Visible = true;
+                        }
                     }
                 }
+                //Atualizar Dgv
+                DgvConsulta.DataSource = dao.ListarFornecedor();
             }
-            //Atualizar Dgv
-            DgvConsulta.DataSource = dao.ListarFornecedor();
         }
 
         private void BtnExcluir_Click(object sender, EventArgs e)
@@ -188,7 +191,7 @@ namespace SistemaPdv.View
             //Estanciar objetos do cliente
             FornecedorModel obj = new FornecedorModel();
 
-            if (DialogResult.Yes == MessageBox.Show("TEM CERTEZA EM APAGAR O ITEM?", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
+            if (DialogResult.Yes == MessageBox.Show("TEM CERTEZA EM APAGAR O FORNECEDOR?", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
             {
                 try
                 {
@@ -291,8 +294,8 @@ namespace SistemaPdv.View
 
         private void BtnMenu_Click(object sender, EventArgs e)
         {
-            Principal principal = new Principal();
-            principal.Show();
+            //Principal principal = new Principal();
+            //principal.Show();
             this.Hide();
         }
 

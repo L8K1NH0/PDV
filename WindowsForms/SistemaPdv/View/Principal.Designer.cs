@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Principal));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.cADASTROToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -54,10 +56,14 @@
             this.DgvFormaPagamento = new System.Windows.Forms.DataGridView();
             this.BtnLimpar = new System.Windows.Forms.Button();
             this.BtnCancelar = new System.Windows.Forms.Button();
+            this.BtnUpdate = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DgvPedidosRealizados)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DgvPedidoEspecifico)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DgvFormaPagamento)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -91,21 +97,21 @@
             // clienteToolStripMenuItem
             // 
             this.clienteToolStripMenuItem.Name = "clienteToolStripMenuItem";
-            this.clienteToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
+            this.clienteToolStripMenuItem.Size = new System.Drawing.Size(163, 24);
             this.clienteToolStripMenuItem.Text = "Cliente";
             this.clienteToolStripMenuItem.Click += new System.EventHandler(this.clienteToolStripMenuItem_Click);
             // 
             // fornecedorToolStripMenuItem
             // 
             this.fornecedorToolStripMenuItem.Name = "fornecedorToolStripMenuItem";
-            this.fornecedorToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
+            this.fornecedorToolStripMenuItem.Size = new System.Drawing.Size(163, 24);
             this.fornecedorToolStripMenuItem.Text = "Fornecedor";
             this.fornecedorToolStripMenuItem.Click += new System.EventHandler(this.fornecedorToolStripMenuItem_Click);
             // 
             // produtoToolStripMenuItem
             // 
             this.produtoToolStripMenuItem.Name = "produtoToolStripMenuItem";
-            this.produtoToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
+            this.produtoToolStripMenuItem.Size = new System.Drawing.Size(163, 24);
             this.produtoToolStripMenuItem.Text = "Produto";
             this.produtoToolStripMenuItem.Click += new System.EventHandler(this.produtoToolStripMenuItem_Click);
             // 
@@ -145,7 +151,7 @@
             this.DgvPedidosRealizados.Location = new System.Drawing.Point(12, 86);
             this.DgvPedidosRealizados.Name = "DgvPedidosRealizados";
             this.DgvPedidosRealizados.ReadOnly = true;
-            this.DgvPedidosRealizados.Size = new System.Drawing.Size(542, 572);
+            this.DgvPedidosRealizados.Size = new System.Drawing.Size(542, 519);
             this.DgvPedidosRealizados.TabIndex = 43;
             this.DgvPedidosRealizados.DoubleClick += new System.EventHandler(this.DgvPedidosRealizados_DoubleClick);
             // 
@@ -321,12 +327,46 @@
             this.BtnCancelar.UseVisualStyleBackColor = false;
             this.BtnCancelar.Click += new System.EventHandler(this.BtnCancelar_Click);
             // 
+            // BtnUpdate
+            // 
+            this.BtnUpdate.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.BtnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.BtnUpdate.Font = new System.Drawing.Font("Segoe UI Emoji", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnUpdate.ForeColor = System.Drawing.Color.White;
+            this.BtnUpdate.Location = new System.Drawing.Point(12, 620);
+            this.BtnUpdate.Name = "BtnUpdate";
+            this.BtnUpdate.Size = new System.Drawing.Size(181, 38);
+            this.BtnUpdate.TabIndex = 94;
+            this.BtnUpdate.Text = "Atualizar tabela";
+            this.BtnUpdate.UseVisualStyleBackColor = false;
+            this.BtnUpdate.Click += new System.EventHandler(this.BtnUpdate_Click);
+            // 
+            // toolTip1
+            // 
+            this.toolTip1.IsBalloon = true;
+            this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.toolTip1.ToolTipTitle = "Informação";
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox4.Image")));
+            this.pictureBox4.Location = new System.Drawing.Point(152, 45);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(20, 20);
+            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox4.TabIndex = 95;
+            this.pictureBox4.TabStop = false;
+            this.toolTip1.SetToolTip(this.pictureBox4, "Dê dois cliques em um item para vê mais informações\r\n");
+            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
             this.ClientSize = new System.Drawing.Size(1193, 670);
+            this.Controls.Add(this.pictureBox4);
+            this.Controls.Add(this.BtnUpdate);
             this.Controls.Add(this.BtnCancelar);
             this.Controls.Add(this.BtnLimpar);
             this.Controls.Add(this.DgvFormaPagamento);
@@ -359,6 +399,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.DgvPedidosRealizados)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DgvPedidoEspecifico)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DgvFormaPagamento)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -392,6 +433,9 @@
         private System.Windows.Forms.DataGridView DgvFormaPagamento;
         private System.Windows.Forms.Button BtnLimpar;
         private System.Windows.Forms.Button BtnCancelar;
+        private System.Windows.Forms.Button BtnUpdate;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.PictureBox pictureBox4;
     }
 }
 

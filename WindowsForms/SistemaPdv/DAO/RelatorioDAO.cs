@@ -66,7 +66,7 @@ namespace SistemaPdv.DAO
                 DataTable tabelaProdutos = new DataTable();
 
                 //COMANDO SQL
-                string strSql = $"select  IdProduto, Pr.NomeProduto, SUM(quantidade) as quantidade, Pr.ValorUnitario , SUM((quantidade * Pr.ValorUnitario)) as ValorTotal from itempedido \r\ninner join produto Pr ON Pr.Id = IdProduto\r\ninner join pedido Pe ON Pe.Id = IdPedido\r\nwhere Pe.DataVenda between '{dataRecente}' and  '{dataAntiga}'\r\ngroup by  IdProduto, Pr.NomeProduto ";
+                string strSql = $"select  IdProduto, Pr.NomeProduto, SUM(quantidade) as quantidade, Pr.ValorUnitario , ROUND(SUM((quantidade * Pr.ValorUnitario)),2) as ValorTotal from itempedido \r\ninner join produto Pr ON Pr.Id = IdProduto\r\ninner join pedido Pe ON Pe.Id = IdPedido\r\nwhere Pe.DataVenda between '{dataRecente}' and  '{dataAntiga}'\r\ngroup by  IdProduto, Pr.NomeProduto ";
 
                 //ORGANIZAR CMD
                 MySqlCommand exCmd = new MySqlCommand(strSql, conexao);
@@ -134,7 +134,7 @@ namespace SistemaPdv.DAO
                 DataTable tabelaFluxo = new DataTable();
 
                 //COMANDO SQL
-                string strSql = $"select * from fluxo  where DataOpen between '{dataAntiga}' and  '{dataRecente}'";
+                string strSql = $"SELECT *\r\nFROM fluxo\r\nWHERE DATE(DataOpen) >= '{dataAntiga}' and DATE(DataOpen) <= '{dataRecente}'";
 
                 //ORGANIZAR CMD
                 MySqlCommand exCmd = new MySqlCommand(strSql, conexao);
@@ -188,6 +188,41 @@ namespace SistemaPdv.DAO
             }
         }
 
+        public int UltimoIdFluxo()
+        {
+            try
+            {
+                int id;
+
+                //COMANDO SQL
+                string strSql = "SELECT Id FROM fluxo ORDER BY Id DESC LIMIT 1";
+
+                //ORGANIZAR CMD 
+                MySqlCommand exCmd = new MySqlCommand(strSql, conexao);
+
+                //ABRIR CONEXAO / EXECUTAR
+                conexao.Open();
+
+                if (exCmd.ExecuteScalar() == null)
+                {
+                    id = 1;
+                }
+                else
+                {
+                    id = int.Parse(exCmd.ExecuteScalar().ToString());
+                }
+
+                //FECHAR CONEXAO
+                conexao.Close();
+                return id;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Erro ao executar o comando Sql: " + e);
+                return 0;
+            }
+        }
+
         public void FecharCaixa(FluxoModel obj)
         {
             try
@@ -223,7 +258,7 @@ namespace SistemaPdv.DAO
             try
             {
                 //COMANDO SQL
-                string strSql = $"SELECT DataOpen FROM Fluxo WHERE DataOpen = '{DateTime.Now.ToString("yyyy-MM-dd")}'";
+                string strSql = $"SELECT DataClose FROM Fluxo WHERE DATE(DataOpen) =  '{DateTime.Now.ToString("yyyy-MM-dd")}'";
 
                 //ORGANIZAR CMD 
                 MySqlCommand exCmd = new MySqlCommand(strSql, conexao);
@@ -257,7 +292,7 @@ namespace SistemaPdv.DAO
             try
             {
                 //COMANDO SQL
-                string strSql = $"SELECT DataClose FROM Fluxo WHERE DataOpen = '{DateTime.Now.ToString("yyyy-MM-dd")}'";
+                string strSql = $"SELECT DataClose FROM Fluxo WHERE DATE(DataOpen) = '{DateTime.Now.ToString("yyyy-MM-dd")}'";
 
                 //ORGANIZAR CMD 
                 MySqlCommand exCmd = new MySqlCommand(strSql, conexao);
@@ -267,11 +302,11 @@ namespace SistemaPdv.DAO
 
                 if (exCmd.ExecuteScalar() == null)
                 {
-                    OpenClose = false;
+                    OpenClose = true;//trocar
                 }
                 else
                 {
-                    OpenClose = true;
+                    OpenClose = false;
                 }
 
                 //FECHAR CONEXAO
@@ -293,7 +328,7 @@ namespace SistemaPdv.DAO
             try
             {
                 //COMANDO SQL
-                string strSql = $"SELECT SaldoInicial FROM Fluxo WHERE DataOpen = '{DateTime.Now.ToString("yyyy-MM-dd")}'";
+                string strSql = $"SELECT SaldoInicial FROM Fluxo WHERE DATE(DataOpen) = '{DateTime.Now.ToString("yyyy-MM-dd")}'";
 
                 //ORGANIZAR CMD 
                 MySqlCommand exCmd = new MySqlCommand(strSql, conexao);
@@ -329,7 +364,7 @@ namespace SistemaPdv.DAO
             try
             {
                 //COMANDO SQL
-                string strSql = $"SELECT SaldoFinal FROM Fluxo WHERE DataClose = '{DateTime.Now.ToString("yyyy-MM-dd")}'";
+                string strSql = $"SELECT SaldoFinal FROM Fluxo WHERE DATE(DataClose) = '{DateTime.Now.ToString("yyyy-MM-dd")}'";
 
                 //ORGANIZAR CMD 
                 MySqlCommand exCmd = new MySqlCommand(strSql, conexao);
@@ -358,40 +393,5 @@ namespace SistemaPdv.DAO
             }
         }
 
-
-        public int UltimoIdFluxo()
-        {
-            try
-            {
-                int id;
-
-                //COMANDO SQL
-                string strSql = "SELECT Id FROM fluxo ORDER BY Id DESC LIMIT 1";
-
-                //ORGANIZAR CMD 
-                MySqlCommand exCmd = new MySqlCommand(strSql, conexao);
-
-                //ABRIR CONEXAO / EXECUTAR
-                conexao.Open();
-
-                if (exCmd.ExecuteScalar() == null)
-                {
-                    id = 1;
-                }
-                else
-                {
-                    id = int.Parse(exCmd.ExecuteScalar().ToString()) + 1;
-                }
-
-                //FECHAR CONEXAO
-                conexao.Close();
-                return id;
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("Erro ao executar o comando Sql: " + e);
-                return 0;
-            }
-        }
     }
 }
